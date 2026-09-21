@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(cors());
+app.use(express.static('public'));
 
 // Endpoint per analisi crypto
 app.get('/api/analyze', async (req, res) => {
@@ -73,9 +75,9 @@ app.get('/api/analyze', async (req, res) => {
   }
 });
 
-// Health check
+// Serve HTML
 app.get('/', (req, res) => {
-  res.json({ status: 'Crypto AI Agent is running!' });
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
